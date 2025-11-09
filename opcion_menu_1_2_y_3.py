@@ -158,7 +158,156 @@ def lista_vacia():
         return True
     return False
 
-        
+#Filtro por continenetes
+def filtro_por_continente(paises):
+    cont = input("Ingrese el continente a filtrar: ").strip().lower()
+    resultado = [pais for pais in paises if pais["continente"].strip().lower() == cont]
+
+    if len(resultado) == 0:
+        print("ERROR! No se encontraron países en ese continente.")
+        return
+
+    print("\nPaíses encontrados:")
+    for pais in resultado:
+        print(f"{pais['nombre'].title()} ({pais['continente'].title()})")
+
+#Filtro por poblacion
+def filtro_por_poblacion(paises):
+    minimo = input("Coloque un minimo de poblacion: ").strip()
+    maximo = input("Coloque un maximo de poblacion: ").strip()
+
+    if not minimo.isdigit() or not maximo.isdigit():
+        print("\nERROR! Debe ingresar solo números.\n")
+        return
+    
+    minimo = int(minimo)
+    maximo = int(maximo)
+
+    resultado = []
+
+    for pais in paises:
+        if minimo <= pais["poblacion"] <= maximo:
+            resultado.append(pais)
+    
+    if len(resultado) == 0:
+        print("\n** No se encontraron países dentro de ese rango de población. **\n")
+        return
+
+    print("\nPaíses encontrados:")
+    for pais in resultado:
+        print(f"{pais['nombre'].title()} (Población: {pais['poblacion']})")
+
+def filtro_por_superficie(paises):
+    minimo = input("Coloque un minimo de superficie: ")
+    maximo = input("Coloque un maximo de superficie: ")
+
+    if not minimo.isdigit() or not maximo.isdigit():
+        print("ERROR! Debe ingresar solo numeros.")
+        return
+    
+    minimo = int(minimo)
+    maximo = int(maximo)
+
+    resultado = []
+
+    for pais in paises:
+        if minimo <= pais["superficie"] <= maximo:
+            resultado.append(pais)
+
+    if len(resultado) == 0:
+        print("ERROR! No se encuentran paises con ese rango de poblacion.")
+
+    print("\nPaises encontrados")
+    for pais in paises:
+        print(f"{pais['nombre']} (Superficie: {pais['superficie']})")
+
+def ordenar_por_nombre(paises):
+    lista = paises.copy()
+
+    for i in range(len(lista)-1):
+        for j in range(len(lista)-1-i):
+            if lista[j]["nombre"].lower() > lista[j+1]["nombre"].lower():
+                temp = lista[j]
+                lista[j] = lista[j+1]
+                lista[j+1] = temp
+
+    print("\nPaises ordenados por nombre(A-Z): ")
+    for pais in lista:
+        print(f"{pais['nombre']}")
+
+def ordenar_por_poblacion(paises, mostrar=False):
+    lista = paises.copy()
+
+    for i in range(len(lista)-1):
+        for j in range(len(lista)-1-i):
+            if lista[j]["poblacion"] > lista[j+1]["poblacion"]:
+                temp = lista[j]
+                lista[j] = lista[j+1]
+                lista[j+1] = temp
+        if mostrar:
+            print("\nPaises ordenados por Pobalcion: ")
+            for pais in lista:
+                print(f"{pais['nombre']} Poblacion: {pais['poblacion']}")
+
+    return lista
+
+def ordenar_por_superficie(paises, mostrar=False):
+    lista = paises.copy()
+
+    for i in range(len(lista)-1):
+        for j in range(len(lista)-1-i):
+            if lista[j]["superficie"] > lista[j+1]["superficie"]:
+                temp = lista[j]
+                lista[j] = lista[j+1]
+                lista[j+1] = temp
+    if mostrar:
+        print("\nPaises ordenados por Superficie: ")
+        for pais in lista:
+            print(f"{pais['nombre']} Superficie: {pais['superficie']}")
+    return lista
+
+def mayor_menor(paises):
+    lista_ordenada = ordenar_por_poblacion(paises)
+    
+    menor = lista_ordenada[0]
+    mayor = lista_ordenada[-1]
+
+    print("\nPaís con MENOR población:")
+    print(f"{menor['nombre'].title()} ({menor['poblacion']})")
+    
+    print("\nPaís con MAYOR población:")
+    print(f"{mayor['nombre'].title()} ({mayor['poblacion']})")
+
+
+def promedio_poblacion(paises):
+    if len(paises) == 0:
+        print("\n** No hay países para calcular promedio **\n")
+        return
+
+    suma = 0
+    for pais in paises:
+        suma += pais["poblacion"]
+    
+    promedio = suma / len(paises)
+
+    print("\nEl promedio de población total es de:")
+    print(f"{promedio:.2f}")
+
+def promedio_superficie(paises):
+    if len(paises) == 0:
+        print("\n** No hay países para calcular promedio **\n")
+        return
+
+    suma = 0
+    for pais in paises:
+        suma += pais["superficie"]
+    
+    promedio = suma / len(paises)
+
+    print("\nEl promedio de superficie total es de:")
+    print(f"{promedio:.2f}")
+
+
 def mostrar_menu():
     while True:
         print("="*50)
@@ -191,11 +340,52 @@ def mostrar_menu():
             case "3":
                 buscar_pais()
             case "4":
-                print("4. Filtrar Países por:")
+                if lista_vacia():
+                    break
+
+                print("\n--- FILTRAR POR ---")
+                print("a)Continente")
+                print("b)Rango de poblacion")
+                print("c)Rango de superficie")
+
+                opcion_filtro = input("Elija una opcion: ").strip().lower()
+                match opcion_filtro:
+                    case "a":
+                        lista = lista_completa_de_paises()
+                        filtro_por_continente(lista)
+                    case "b":
+                        lista = lista_completa_de_paises()
+                        filtro_por_poblacion(lista)
+                    case "c":
+                        lista = lista_completa_de_paises()
+                        filtro_por_superficie(lista)
             case "5":
-                print("5. Ordenar Países por:")
+                if lista_vacia():
+                    break
+                print("\n--- ORDENAR POR ---")
+                print("a)Nombre")
+                print("b)Poblacion")
+                print("c)Superficie")
+
+                opcion_ordenar = input("Elija una opcion").strip().lower()
+                match opcion_ordenar:
+                    case "a":
+                        lista = lista_completa_de_paises()
+                        ordenar_por_nombre(lista)
+                    case "b":
+                        lista = lista_completa_de_paises()
+                        ordenar_por_poblacion(lista)
+                    case "c":
+                        lista = lista_completa_de_paises()
+                        ordenar_por_superficie(lista)
             case "6":
-                print("6. Mostrar Estadísticas:")
+                lista = lista_completa_de_paises()
+                if lista_vacia():
+                    return
+                print("\n--- ESTADISTICAS ---")
+                mayor_menor(lista)
+                promedio_poblacion(lista)
+                promedio_superficie(lista)
             case "7":
                 print("="*20)
                 print("=== Hasta Pronto ===")
