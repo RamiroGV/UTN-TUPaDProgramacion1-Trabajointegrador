@@ -201,6 +201,7 @@ def filtro_por_poblacion(paises):
     for pais in resultado:
         print(f"{pais['nombre'].title()} (Población: {pais['poblacion']})")
 
+#Filtro por superficie
 def filtro_por_superficie(paises):
     minimo = validacion_solo_numeros_enteros_positivos("\nColoque un mínimo de superficie: ",
             "\n** Error: solo números enteros positivos, vuelva a intentarlo **\n")
@@ -228,6 +229,7 @@ def filtro_por_superficie(paises):
         for pais in resultado:
             print(f"{pais['nombre'].title()} (Superficie: {pais['superficie']})")
 
+#Ordenamos por nombre, comparando cada elemento
 def ordenar_por_nombre(paises):
     lista = paises.copy()
 
@@ -242,6 +244,7 @@ def ordenar_por_nombre(paises):
     for pais in lista:
         print(f"{pais['nombre'].title()}")
 
+#Ordenamos por poblacion, comparando cada elemento
 def ordenar_por_poblacion(paises, mostrar=False):
     lista = paises.copy()
 
@@ -258,6 +261,7 @@ def ordenar_por_poblacion(paises, mostrar=False):
 
     return lista
 
+#Ordenamos por superficie, comparando cada elemento
 def ordenar_por_superficie(paises, mostrar=False):
     lista = paises.copy()
 
@@ -273,6 +277,7 @@ def ordenar_por_superficie(paises, mostrar=False):
             print(f"{pais['nombre'].title():<15} | Superficie: {pais['superficie']}")
     return lista
 
+#Mostramos el pais que tiene mayor y menor poblacion, llamando a la funcion que los ordena
 def mayor_menor(paises):
     lista_ordenada = ordenar_por_poblacion(paises)
     
@@ -285,7 +290,7 @@ def mayor_menor(paises):
     print("\nPaís con MAYOR población:")
     print(f"{mayor['nombre'].title()} ({mayor['poblacion']})")
 
-
+#Sacamos el promedio de poblacion de todos los paises
 def promedio_poblacion(paises):
     if len(paises) == 0:
         print("\n** No hay países para calcular promedio, ingreselos con opción (1) **\n")
@@ -300,6 +305,7 @@ def promedio_poblacion(paises):
     print("\nEl promedio de población total es de:")
     print(f"{promedio:.2f}")
 
+#Sumamos todas las superficies de cada pais y las dividimos por la cantidad de paises
 def promedio_superficie(paises):
     if len(paises) == 0:
         print("\n** No hay países para calcular promedio, ingreselos con opción (1) **\n")
