@@ -59,4 +59,10 @@ la lista está vacía y vuelve al menú.
 El programa es intuitivo y comunica bien al usuario, haciendo que cada acción o petición
 sea comprendida.
 
+Información complementaria
+
 Link a video
+
+
+En carpeta "MARCO TEÓRICO" se podrá visualizar el .pdf con la teoría del proyecto
+y una imagen .png del diagrama de flujo del mismo.
