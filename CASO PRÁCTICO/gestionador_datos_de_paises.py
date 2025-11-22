@@ -158,6 +158,34 @@ def lista_vacia():
         return True
     return False
 
+##Submenu de la opcion 4
+def menu_filtrar():
+    if lista_vacia():
+        return
+
+    print("\n--- FILTRAR POR ---")
+    print("a)Continente")
+    print("b)Rango de población")
+    print("c)Rango de superficie\n")
+
+    while True:
+        opcion_filtro = input("Elija una opción: ").strip().lower()
+        match opcion_filtro:
+            case "a":
+                lista = lista_completa_de_paises()
+                filtro_por_continente(lista)
+                break
+            case "b":
+                lista = lista_completa_de_paises()
+                filtro_por_poblacion(lista)
+                break
+            case "c":
+                lista = lista_completa_de_paises()
+                filtro_por_superficie(lista)
+                break
+            case _:
+                print("\n** Opción incorrecta, vuelva a intentarlo (a, b, c) **\n")
+
 #Filtro por continenetes
 def filtro_por_continente(paises):
     cont = validacion_solo_letras_input("\nIngrese el continente (exacto) a filtrar: ",
@@ -229,6 +257,33 @@ def filtro_por_superficie(paises):
         for pais in resultado:
             print(f"{pais['nombre'].title()} (Superficie: {pais['superficie']})")
 
+#Submenu de la opcion 5
+def menu_ordenar():
+    if lista_vacia():
+        return
+    print("\n--- ORDENAR POR ---")
+    print("a)Nombre")
+    print("b)Población")
+    print("c)Superficie\n")
+
+    while True:
+        opcion_ordenar = input("Elija una opción: ").strip().lower()
+        match opcion_ordenar:
+            case "a":
+                lista = lista_completa_de_paises()
+                ordenar_por_nombre(lista)
+                break
+            case "b":
+                lista = lista_completa_de_paises()
+                ordenar_por_poblacion(lista, mostrar=True)
+                break
+            case "c":
+                lista = lista_completa_de_paises()
+                ordenar_por_superficie(lista, mostrar=True)
+                break
+            case _:
+                print("\n** Opción incorrecta, vuelva a intentarlo (a, b, c) **\n")
+
 #Ordenamos por nombre, comparando cada elemento
 def ordenar_por_nombre(paises):
     lista = paises.copy()
@@ -276,6 +331,17 @@ def ordenar_por_superficie(paises, mostrar=False):
         for pais in lista:
             print(f"{pais['nombre'].title():<15} | Superficie: {pais['superficie']}")
     return lista
+
+#Llamado de opcion 6
+def estadisticas_paises():
+    lista = lista_completa_de_paises()
+    if lista_vacia():
+        return
+    print("\n--- ESTADÍSTICAS ---")
+    mayor_menor(lista)
+    promedio_poblacion(lista)
+    promedio_superficie(lista)
+    cantidad_paises_por_continente()
 
 #Mostramos el pais que tiene mayor y menor poblacion, llamando a la funcion que los ordena
 def mayor_menor(paises):
@@ -373,65 +439,11 @@ def mostrar_menu():
             case "3":
                 buscar_pais()
             case "4":
-                if lista_vacia():
-                    continue
-
-                print("\n--- FILTRAR POR ---")
-                print("a)Continente")
-                print("b)Rango de población")
-                print("c)Rango de superficie\n")
-
-                while True:
-                    opcion_filtro = input("Elija una opción: ").strip().lower()
-                    match opcion_filtro:
-                        case "a":
-                            lista = lista_completa_de_paises()
-                            filtro_por_continente(lista)
-                            break
-                        case "b":
-                            lista = lista_completa_de_paises()
-                            filtro_por_poblacion(lista)
-                            break
-                        case "c":
-                            lista = lista_completa_de_paises()
-                            filtro_por_superficie(lista)
-                            break
-                        case _:
-                            print("\n** Opción incorrecta, vuelva a intentarlo (a, b, c) **\n")
+                menu_filtrar()
             case "5":
-                if lista_vacia():
-                    continue
-                print("\n--- ORDENAR POR ---")
-                print("a)Nombre")
-                print("b)Población")
-                print("c)Superficie\n")
-
-                while True:
-                    opcion_ordenar = input("Elija una opción: ").strip().lower()
-                    match opcion_ordenar:
-                        case "a":
-                            lista = lista_completa_de_paises()
-                            ordenar_por_nombre(lista)
-                            break
-                        case "b":
-                            lista = lista_completa_de_paises()
-                            ordenar_por_poblacion(lista, mostrar=True)
-                            break
-                        case "c":
-                            lista = lista_completa_de_paises()
-                            ordenar_por_superficie(lista, mostrar=True)
-                            break
-                        case _:
-                            print("\n** Opción incorrecta, vuelva a intentarlo (a, b, c) **\n")
+                menu_ordenar()
             case "6":
-                lista = lista_completa_de_paises()
-                if lista_vacia():
-                    continue
-                print("\n--- ESTADÍSTICAS ---")
-                mayor_menor(lista)
-                promedio_poblacion(lista)
-                promedio_superficie(lista)
-                cantidad_paises_por_continente()
+                estadisticas_paises()
             case "7":
                 print("="*20)
                 print("=== Hasta Pronto ===")
