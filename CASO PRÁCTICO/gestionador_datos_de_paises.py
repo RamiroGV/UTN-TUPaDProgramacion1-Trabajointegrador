@@ -406,6 +406,12 @@ def cantidad_paises_por_continente():
     for continente, cantidad in conteo.items():
         print(f"{continente.title():<15} | {cantidad} país/es")
 
+def fin_salir():
+    print("="*20)
+    print("=== Hasta Pronto ===")
+    print("="*20)
+    exit()
+
 
 def mostrar_menu():
     while True:
@@ -445,10 +451,7 @@ def mostrar_menu():
             case "6":
                 estadisticas_paises()
             case "7":
-                print("="*20)
-                print("=== Hasta Pronto ===")
-                print("="*20)
-                break
+                fin_salir()
             case _:
                 print("\n** Opción incorrecta, vuelva a intentarlo (1 al 7)**\n")
 
