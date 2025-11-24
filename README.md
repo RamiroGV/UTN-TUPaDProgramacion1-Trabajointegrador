@@ -62,7 +62,7 @@ sea comprendida.
 Información complementaria
 
 Link a video
-
+https://www.youtube.com/watch?v=xp9xseaY4Zo
 
 En carpeta "MARCO TEÓRICO" se podrá visualizar el .pdf con la teoría del proyecto
 y una imagen .png del diagrama de flujo del mismo.
